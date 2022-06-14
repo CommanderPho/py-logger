@@ -1,14 +1,13 @@
 import time
 from datetime import datetime
 import colorama
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
-from PySide2.QtGui import *
+# from PySide2.QtWidgets import *
+# from PySide2.QtCore import *
+# from PySide2.QtGui import *
+from qtpy.QtWidgets import *
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 import os
-from pushbullet import PushBullet
-from pywebio.input import *
-from pywebio.output import *
-from pywebio.session import *
 import math
 import re
 import threading
@@ -265,13 +264,7 @@ class Log():
         if self.log_file is not None:
             self.log_file.close()
         
-    def init_pushbullet(self, pb_access_token):
-        try:
-            self.pb = PushBullet(pb_access_token)
-            self.pb_enabled = False
-        except Exception as e:
-            self.e("LOGGER", f"Error in initializing PushBullet, notifications DISABLED: {e}")
-
+    
     def set_general_logging_level(self, min_level=-1, levels_list=None):
         if isinstance(min_level, str):
             min_level = self.logging_levels[min_level]
@@ -299,17 +292,7 @@ class Log():
             self.file_log_levels = levels_list if isinstance(levels_list, list) else [levels_list]
         self.i("LOGGER", f"File Logging Level Changed: {self.file_log_levels}")
 
-    def set_pb_logging_level(self, min_level=-1, levels_list=None):
-        if isinstance(min_level, str):
-            min_level = self.logging_levels[min_level]
-        if min_level > 0:
-            self.pb_log_levels = [list(self.logging_levels)[i] for i in range(0, min_level)]
-            self.pb_enabled = True
-        elif levels_list is not None:
-            self.pb_log_levels = levels_list if isinstance(levels_list, list) else [levels_list]
-            self.pb_enabled = True
-        self.i("LOGGER", f"PushBullet Logging Level Changed: {self.pb_log_levels}")
-
+    
     def set_widget_logging_level(self, min_level=-1, levels_list=None):
         if isinstance(min_level, str):
             min_level = self.logging_levels[min_level]
@@ -338,9 +321,7 @@ class Log():
         self.i("LOGGER", "Logging FILE has been " + self.status_string(enabled)+": " + os.path.abspath(self.log_filename))
         self.file_enabled = enabled
     
-    def toggle_pushbullet(self, enabled):
-        self.i("LOGGER", "Logging PUSHBULLET has been " + self.status_string(enabled)+": " + os.path.abspath(self.log_filename))
-        self.pb_enabled = enabled
+    
 
     def status_string(self, status):
         if status:

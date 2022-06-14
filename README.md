@@ -11,3 +11,6 @@ A thread safe, color coded logger that writes to files, QtGUI/QtWidgets, PushBul
 - Status bar widget to keep track of background tasks
 
 
+## Requirements
+mamba install oyaml -c conda-forge
+

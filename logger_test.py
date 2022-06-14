@@ -4,7 +4,7 @@ import argparse
 import sys
 import faulthandler
 import time
-import oyaml as yaml
+import oyaml as yaml # mamba install oyaml -c conda-forge
 import traceback
 
 log = None
@@ -31,9 +31,13 @@ def process_cl_args():
 def main():
     global log
     config = {}
-    with open("config.no_commit.yaml") as f:
+    # with open("config.no_commit.yaml") as f:
+    #     config = yaml.safe_load(f)
+    
+    with open("config.yaml") as f:
         config = yaml.safe_load(f)
     pb_token = config.get("pb_access_token", "")
+    
     log = Log()
     # install exception hook: without this, uncaught exception would cause application to exit
     sys.excepthook = trap_exc_during_debug

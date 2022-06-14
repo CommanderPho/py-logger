@@ -1,7 +1,10 @@
 from pylogger import *
-from PySide2.QtWidgets import *
-from PySide2.QtCore import *
-from PySide2.QtGui import *
+# from PySide2.QtWidgets import *
+# from PySide2.QtCore import *
+# from PySide2.QtGui import *
+from qtpy.QtWidgets import *
+from qtpy.QtCore import *
+from qtpy.QtGui import *
 import time
 import random
 
